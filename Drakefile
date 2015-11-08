@@ -1,0 +1,7 @@
+; Pull field names from input file
+tmp/control.json <- $[INFILE], control.template.json 
+  jq ".csv.columns = $(head -1 $INPUT0 | python slugify-headers/main.py --json)" $INPUT1 > $OUTPUT
+
+; Push data to Socrata via DataSync using new control file
+result.txt <- $[INFILE], tmp/control.json
+  java -jar DataSync-1.6.jar -c config.json -f $INPUT0 -i $DATASET -m replace -ph true -cf $INPUT1 
