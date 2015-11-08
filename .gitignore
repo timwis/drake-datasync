@@ -1,6 +1,4 @@
 .drake
 drake.log
 DataSync-1.6.jar
-tmp/*
-data/*
 config.json
